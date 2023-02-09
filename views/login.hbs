@@ -1,7 +1,11 @@
-<h1>Login Page</h1>
-
-<form method="post" action="/auth/login">
-  <label>Username: <input type="text" name="username" value="{{body.username}}" /></label> <!--По този начин запазваме самото поле да не се изтрие при рефреш!!!-->
-  <label>Password: <input type="password" name="password" /></label>
-  <button>Login</button>
-</form>
+ <!--По този начин запазваме самото поле да не се изтрие при рефреш!!!-->
+  <section id="viewLogin">
+            <h2>Login:</h2>
+            <form id="formLogin">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your Username">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your Password">
+                <input type="submit" class="login" value="Login">
+            </form>
+        </section>
