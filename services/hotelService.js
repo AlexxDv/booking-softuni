@@ -9,8 +9,7 @@ async function getById(id) {
 }
 
 async function getByUserBooking(userId) {
-  return Hotel.findById({ bookings: userId })
-    .lean();
+  return Hotel.findById({ bookings: userId }).lean();
 }
 
 async function create(hotel) {
@@ -35,10 +34,6 @@ async function deleteById(id) {
 async function bookRoom(hotelId, userId) {
   const hotel = await Hotel.findById(hotelId);
 
-  if (hotel.bookings.includes(userId)) {
-    throw new Error("User is already booked");
-  }
-
   hotel.bookings.push(userId);
   await hotel.save();
 }
@@ -50,5 +45,5 @@ module.exports = {
   update,
   deleteById,
   bookRoom,
-  getByUserBooking
+  getByUserBooking,
 };
