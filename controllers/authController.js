@@ -10,17 +10,21 @@ authController.get("/register", (req, res) => {
 
 authController.post("/register", async (req, res) => {
   try {
-    if (validator.isEmail(req.body.email) == false) {
-      throw new Error("Invalid Email");
+          if (validator.isEmail(req.body.email) == false) {
+            throw new Error("Invalid Email");
+          }
 
-    }
-    if (req.body.username == "" || req.body.password == "") {
-      throw new Error("Please fill out all fields");
-    }
+          if (req.body.username == "" || req.body.password == "") {
+            throw new Error("Please fill out all fields");
+          }
 
-    if (req.body.password != req.body.repass) {
-      throw new Error("Passwords do not match");
-    }
+          if (req.body.password.length < 5 ) {
+            throw new Error("Password must be at least 5 characters long");
+          }
+
+          if (req.body.password != req.body.repass) {
+            throw new Error("Passwords do not match");
+          }
 
     const token = await register(req.body.email, req.body.username, req.body.password);
 

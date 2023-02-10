@@ -3,39 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
-    <!-- Remove 2 dots before /static-->
+    <link
+      rel="stylesheet"
+      href="/static/css/style.css"
+    /><!-- Remove 2 dots before /static-->
   </head>
 
   <body>
 
     <div id="container">
-      <!--
-          <div>
-            <div class="notification loadingBox">
-                Loading &hellip;
-            </div>
-            <div class="notification infoBox">
-                <span>Info</span>
-            </div>
-            <div class="notification errorBox">
-                <span>Error</span>
-            </div>
+      {{#if errors}}
+        <div>
+          <div class="notification errorBox">
+            {{#each errors}}
+              <span>{{this}}</span>
+            {{/each}}
+          </div>
         </div>
-      -->
+      {{/if}}
       <nav>
         <div class="left-container">
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/hotel/create">Add +</a></li>
-            <li><a href="/auth/login">Login</a></li>
-            <li><a href="/auth/register">Register</a></li>
+            
+            {{#if username}}
+              <li><a href="/hotel/create">Add +</a></li>
+            {{else}}
+              <li><a href="/auth/login">Login</a></li>
+              <li><a href="/auth/register">Register</a></li>
+            {{/if}}
           </ul>
         </div>
-        <div class="right-container">
-          <a href="/profile" class="log-out">Placeholder{{name}}</a>
-          <a href="/auth/logout" class="log-out">Logout</a>
-        </div>
+
+        {{#if username}}
+          <div class="right-container">
+            <a href="/profile" class="log-out">{{username}}</a>
+            <a href="/auth/logout" class="log-out">Logout</a>
+          </div>
+        {{/if}}
+
       </nav>
 
       {{{body}}}
