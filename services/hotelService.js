@@ -8,6 +8,11 @@ async function getById(id) {
   return Hotel.findById(id).lean();
 }
 
+async function getByUserBooking(userId) {
+  return Hotel.findById({ bookings: userId })
+    .lean();
+}
+
 async function create(hotel) {
   return await Hotel.create(hotel);
 }
@@ -45,4 +50,5 @@ module.exports = {
   update,
   deleteById,
   bookRoom,
+  getByUserBooking
 };
