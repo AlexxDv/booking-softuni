@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 mongoose.set('strictQuery', false)
 // TODO change database according to your needs
 
-const CONNECTION_STRING = "mongodb://127.0.0.1:27017/scaffoldDb";
+const CONNECTION_STRING = "mongodb://127.0.0.1:27017/booking-uni";
 
 module.exports = async (app) => {
   try {

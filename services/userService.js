@@ -4,47 +4,57 @@ const User = require("../models/User");
 
 const JWT_SECRET = "9dasd23e7dbw72";
 
-async function register(username, password) {
-  const existing = await User.findOne({ username }).collation({
+async function register(email, username, password) {
+  const existingUsername = await User.findOne({ username }).collation({
     locale: "en",
     strength: 2,
   });
 
-  if (existing) {
+  if (existingUsername) {
     throw new Error("User already exists");
   }
 
+  const existingEmail = await User.findOne({ email }).collation({
+    locale: "en",
+    strength: 2,
+  });
+
+  if (existingEmail) {
+    throw new Error("Email already exists");
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await User.create({ username, hashedPassword });
+  const user = await User.create({ email, username, hashedPassword });
 
   //TODO see assignment if registration creates user session
   const token = createSession(user);
   return token;
 }
-async function login(username, password) {
+async function login(email, password) {
   //Ако трябва да проверяваме и за имейл-трябва да направим търсенето още веднъж
-  const user = await User.findOne({ username }).collation({
+  const user = await User.findOne({ email }).collation({
     locale: "en",
     strength: 2,
   });
 
   if (!user) {
-    throw new Error("Incorrect username or password");
+    throw new Error("Incorrect email or password");
   }
 
   const hasMatch = await bcrypt.compare(password, user.hashedPassword);
 
   if (hasMatch == false) {
-    throw new Error("Incorrect username or password");
+    throw new Error("Incorrect email or password");
   }
 
   const token = createSession(user);
   return token;
 }
 
-function createSession({_id, username}) {
+function createSession({_id, email, username}) {
   const payload = {
     _id,
+    email,
     username,
   };
 

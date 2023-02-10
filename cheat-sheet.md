@@ -1,5 +1,5 @@
 [x] npm init -y
-[x] npm i express mongoose bcrypt express-handlebars cookie-parser jsonwebtoken
+[x] npm i express mongoose bcrypt express-handlebars cookie-parser jsonwebtoken validator
 
 "start": "nodemon index.js" 
 ---
